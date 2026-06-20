@@ -1,0 +1,28 @@
+US-Retail-Sales-Dashboard/
+│
+├── data/
+│   ├── raw/
+│   └── cleaned/
+│
+├── python/
+│   ├── clean_retail_data.py
+│   ├── eda.py
+│   └── RetailSalesAnalysis.ipynb
+│
+├── sql/
+│   ├── create_tables.sql
+│   ├── load_data.sql
+│   └── analysis_queries.sql
+│
+├── powerbi/
+│   └── RetailDashboard.pbix
+│
+├── images/
+│   ├── executive_dashboard.png
+│   ├── us_map.png
+│   ├── trends.png
+│   └── categories.png
+│
+├── README.md
+├── requirements.txt
+└── LICENSE
