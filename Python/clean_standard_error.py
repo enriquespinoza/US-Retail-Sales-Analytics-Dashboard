@@ -24,18 +24,22 @@ print("Cleaned Folder:", cleaned_folder)
 # Locate CSV file
 # -----------------------------
 
-csv_files = list(raw_folder.glob("*.csv"))
+# -----------------------------
+# Locate Standard Errors CSV
+# -----------------------------
 
-print("\nCSV Files Found:")
-print(csv_files)
+csv_file = raw_folder / "standard_errors.csv"
 
-if len(csv_files) == 0:
+print("\nCSV File Found:")
+print(csv_file)
+
+if not csv_file.exists():
     raise FileNotFoundError(
-        f"No CSV files found in {raw_folder}"
+        f"Could not find {csv_file}"
     )
 
-# Load first CSV found
-df = pd.read_csv(csv_files[0])
+# Load Standard Errors file
+df = pd.read_csv(csv_file)
 
 # -----------------------------
 # Basic dataset info
@@ -58,14 +62,14 @@ id_columns = ["fips", "stateabbr", "naics"]
 
 date_columns = [
     col for col in df.columns
-    if col.startswith("yy")
+    if col.startswith("se")
 ]
 
 df_long = df.melt(
     id_vars=id_columns,
     value_vars=date_columns,
     var_name="month_code",
-    value_name="yoy_growth"
+    value_name="standard_error"
 )
 
 # -----------------------------
@@ -96,8 +100,8 @@ df_long["date"] = pd.to_datetime(
 # Data cleaning
 # -----------------------------
 
-df_long["yoy_growth"] = pd.to_numeric(
-    df_long["yoy_growth"],
+df_long["standard_error"] = pd.to_numeric(
+    df_long["standard_error"],
     errors="coerce"
 )
 
@@ -123,7 +127,7 @@ df_long = df_long.drop_duplicates()
 
 output_path = (
     cleaned_folder /
-    "state_retail_yoy_clean.csv"
+    "standard_errors_clean.csv"
 )
 
 df_long.to_csv(
@@ -150,42 +154,3 @@ print("\nUnique NAICS Codes:")
 print(sorted(df_long["naics"].astype(str).unique()))
 print("SCRIPT REACHED THE END")
 
-# Create NAICS lookup table
-
-naics_lookup = pd.DataFrame({
-    "naics": [
-        "441", "442", "443", "444",
-        "445", "446", "447", "448",
-        "451", "452", "453", "TOTAL"
-    ],
-    "category": [
-        "Motor Vehicle and Parts Dealers",
-        "Furniture and Home Furnishings Stores",
-        "Electronics and Appliance Stores",
-        "Building Material and Garden Equipment Dealers",
-        "Food and Beverage Stores",
-        "Health and Personal Care Stores",
-        "Gasoline Stations",
-        "Clothing and Clothing Accessories Stores",
-        "Sporting Goods Hobby Musical Instrument and Book Stores",
-        "General Merchandise Stores",
-        "Miscellaneous Store Retailers",
-        "Total Retail Sales Excluding Nonstore Retailers"
-    ]
-})
-
-lookup_path = cleaned_folder / "naics_lookup.csv"
-
-naics_lookup.to_csv(
-    lookup_path,
-    index=False
-)
-
-print("\nNAICS Lookup Table:")
-print(naics_lookup)
-
-print("\nLookup File Created:")
-print(lookup_path.exists())
-
-print("Lookup File Location:")
-print(lookup_path)

@@ -52,3 +52,31 @@ US-Retail-Sales-Analytics-Dashboard/
 │
 └── README.md
 ```
+## Dashboard Pages
+
+- Executive Summary
+- State Performance Map
+- State Rankings
+- Retail Category Analysis
+- Monthly Trend Analysis
+- Regional Analysis
+- Data Quality & Confidence
+- Business Recommendations
+
+## Skills Demonstrated
+
+- Power BI Dashboard Development
+- SQL Querying
+- Python Data Cleaning
+- Data Modeling
+- ETL
+- Business Intelligence
+- Geographic Analysis
+- Executive Reporting
+
+## Key Insights
+
+- Identified high-growth and low-growth retail markets.
+- Compared performance across retail sectors.
+- Visualized geographic trends using an interactive U.S. map.
+- Incorporated data quality metrics using standard errors and coverage measures.
