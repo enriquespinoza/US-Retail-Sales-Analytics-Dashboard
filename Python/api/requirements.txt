@@ -1,0 +1,4 @@
+fastapi==0.101.1
+uvicorn[standard]==0.22.0
+pandas==2.2.3
+requests==2.31.0
